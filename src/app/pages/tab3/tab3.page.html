@@ -1,9 +1,17 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
     <ion-title>
-      Tab Three
+      Favoritos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content padding>
+  <ion-slides *ngIf="dataLocal.noticias.length === 0">
+    <ion-slide>
+      <ion-label>No hay favoritos</ion-label>
+      <ion-icon slot="icon-only" name="heart-dislike"></ion-icon>
+    </ion-slide>
+  </ion-slides>
+  <app-noticias [noticias]="dataLocal.noticias" *ngIf="dataLocal.noticias.length > 0" [enFavoritos]="true"></app-noticias>
+</ion-content>

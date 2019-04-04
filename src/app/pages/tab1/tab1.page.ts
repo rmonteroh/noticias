@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticiasService } from 'src/app/services/noticias.service';
-import { Observable } from 'rxjs';
+import { Article } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-tab1',
@@ -9,15 +9,28 @@ import { Observable } from 'rxjs';
 })
 export class Tab1Page implements OnInit {
 
-  news: Observable<any[]>;
+  noticias: Article[] = [];
   constructor(private newService: NoticiasService) {}
 
   ngOnInit() {
+    this.cargarNoticias();
+  }
+  loadData(event) {
+    this.cargarNoticias( event );
+  }
+
+  cargarNoticias( event?) {
     this.newService.getnews()
-    .subscribe( news => {
-      // this.news = news.articles;
-      // console.log(this.news);
-      console.log('noticias', news);
+    .subscribe( newResp => {
+      if (newResp.articles.length === 0) {
+        event.target.disabled = true;
+        event.target.complete();
+        return;
+      }
+      this.noticias.push(  ...newResp.articles );
     });
+    if (event) {
+      event.target.complete();
+    }
   }
 }

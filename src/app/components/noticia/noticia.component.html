@@ -1,0 +1,19 @@
+<ion-card>
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-card-subtitle slot="start" color="primary">{{ noticia.author || 'No author'}}</ion-card-subtitle>
+        <ion-button fill="clear" (click)="lanzarMenu()" slot="end" text-right>
+          <ion-icon slot="icon-only" name="more"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-img class="animated fadeIn fast" *ngIf="noticia.urlToImage" [src]="noticia.urlToImage" (click)="abrirNoticia()"></ion-img>
+      <ion-item lines="none">
+        <ion-card-subtitle slot="start" text-left>{{ noticia.source.name }}</ion-card-subtitle>
+        <ion-card-subtitle slot="end" text-right>{{ noticia.publishedAt | date:'mediumDate'}}</ion-card-subtitle>
+      </ion-item>
+      <ion-card-title (click)="abrirNoticia()">{{noticia.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{noticia.description}}
+    </ion-card-content>
+  </ion-card>
